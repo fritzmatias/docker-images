@@ -59,12 +59,12 @@ FROM xrdp as xrdp_configured
 RUN adduser xrdp ssl-cert && echo "User: ${DOCKER_USER}" && adduser ${DOCKER_USER} ssl-cert 
 
 # add custom keys and certificates
-COPY ./files/cert.pem /etc/xrdp/cert2.pem
-COPY ./files/key.pem /etc/xrdp/key2.pem
-RUN sed -i " \
-    s/certificate=/certificate=cert2.pem/g; \
-    s/key_file=/key_file=key2.pem/g; \
-    " /etc/xrdp/xrdp.ini 
+# COPY ./files/cert.pem /etc/xrdp/cert2.pem
+# COPY ./files/key.pem /etc/xrdp/key2.pem
+# RUN sed -i " \
+    # s/certificate=/certificate=cert2.pem/g; \
+    # s/key_file=/key_file=key2.pem/g; \
+    # " /etc/xrdp/xrdp.ini 
  
 RUN chmod 644 /etc/xrdp/cert2.pem
 RUN chmod 640 /etc/xrdp/key2.pem

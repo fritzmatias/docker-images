@@ -1,0 +1,18 @@
+#debian based image with python
+FROM python:slim AS build
+
+ARG ARCH=amd64
+ARG PLATFORM=$(uname -s)_${ARCH}
+
+#from: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions
+#from: https://eksctl.io/installation/
+RUN \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    unzip awscliv2.zip \
+    /aws/install
+
+RUN \
+    curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz" -o awseks.tar.gz \
+    curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep ${PLATFORM} | sha256sum --check 
+
+#CMD ["/usr/local/bin/aws","--version"]

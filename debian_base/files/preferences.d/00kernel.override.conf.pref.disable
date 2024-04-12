@@ -1,0 +1,73 @@
+Package: $kernel
+Pin: release a=stable,o=Debian,c=main
+Pin-Priority: 1001
+
+Package: dkms
+Pin: release a=stable,o=Debian,c=main
+Pin-Priority: 1001
+
+Package: linux-image-*
+Pin: release a=stable,o=Debian,c=main
+Pin-Priority: 1001
+
+Package: linux-image-*
+Pin: release a=stable,o=Debian,c=misc
+Pin-Priority: 1001
+
+Package: nvidia-*
+Pin: release a=stable,o=Debian,c=main
+Pin-Priority: 1001
+
+Package: nvidia-*
+Pin: release a=stable,o=Debian,c=misc
+Pin-Priority: 1001
+
+Package: nvidia-*
+Pin: release a=stable,o=Debian,c=contrib
+Pin-Priority: 989
+Pin-Priority: 1001
+
+Package: nvidia-*
+Pin: release a=stable,o=Debian,c=non-free
+Pin-Priority: 989
+Pin-Priority: 1001
+
+Package: firmware-*
+Pin: release a=stable,o=Debian,c=main
+Pin-Priority: 1001
+
+Package: firmware-*
+Pin: release a=stable,o=Debian,c=misc
+Pin-Priority: 1001
+
+Package: firmware-*
+Pin: release a=stable,o=Debian,c=contrib
+Pin-Priority: 1001
+
+Package: firmware-*
+Pin: release a=stable,o=Debian,c=non-free
+Pin-Priority: 1001
+
+Package: firmware-*
+Pin: release a=stable,o=Debian,c=non-free-firmware
+Pin-Priority: 1001
+
+Package: *-microcode
+Pin: release a=stable,o=Debian,c=main
+Pin-Priority: 1001
+
+Package: *-microcode
+Pin: release a=stable,o=Debian,c=misc
+Pin-Priority: 1001
+
+Package: *-microcode
+Pin: release a=stable,o=Debian,c=contrib
+Pin-Priority: 1001
+
+Package: *-microcode
+Pin: release a=stable,o=Debian,c=non-free
+Pin-Priority: 1001
+
+Package: *-microcode
+Pin: release a=stable,o=Debian,c=non-free-firmware
+Pin-Priority: 1001

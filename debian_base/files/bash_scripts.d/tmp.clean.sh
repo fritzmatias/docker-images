@@ -1,0 +1,5 @@
+cleanTmps(){
+	rmDirs '/tmp/*' 
+}
+
+cleanTmps

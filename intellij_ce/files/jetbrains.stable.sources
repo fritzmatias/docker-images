@@ -1,0 +1,5 @@
+Types: deb deb-src
+URIs: http://jetbrains-ppa.s3-website.eu-central-1.amazonaws.com
+Suites: any
+Components: main 
+Signed-By: /usr/share/keyrings/jetbrains-ppa-archive-keyring.gpg

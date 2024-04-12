@@ -1,0 +1,26 @@
+ARG IMAGE_TAG stable
+FROM debian_base:${IMAGE_TAG} as base
+
+ENV DEBIAN_TARGETS ${DEBIAN_TARGETS}
+ARG NPM_DEBIAN_VERSION=${NPM_DEBIAN_VERSION}
+ARG NODEJS_DEBIAN_VERSION=${NODEJS_DEBIAN_VERSION}
+ARG JAVA_ID=${JAVA_ID}
+
+RUN \
+    /run.sh APTinstall \
+        ca-certificates-java \
+        openjdk-${JAVA_ID}-jre \
+        nodejs${NODEJS_DEBIAN_VERSION} \
+        npm${NPM_DEBIAN_VERSION} \
+    && npm install -g \ 
+        firebase-tools \
+    && firebase setup:emulators:database \
+    && firebase setup:emulators:firestore \
+    && firebase setup:emulators:pubsub \
+    && firebase setup:emulators:storage \
+    && firebase setup:emulators:ui \
+    && /run.sh clean \
+    && rm ~/.cache/firebase/emulators/*.zip
+
+#https://firebase.google.com/docs/cli?authuser=0#mac-linux-npm
+#https://firebase.google.com/docs/emulator-suite/install_and_configure?hl=en&authuser=0#startup

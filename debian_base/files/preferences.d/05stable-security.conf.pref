@@ -1,0 +1,19 @@
+Package: *
+Pin: release a=stable-security,o=Debian,c=main
+Pin-Priority: 989
+
+Package: *
+Pin: release a=stable-security,o=Debian,c=misc
+Pin-Priority: 981
+
+Package: *
+Pin: release a=stable-security,o=Debian,c=contrib
+Pin-Priority: 981
+
+Package: *
+Pin: release a=stable-security,o=Debian,c=non-free
+Pin-Priority: 971
+
+Package: *
+Pin: release a=stable-security,o=Debian,c=non-free-firmware
+Pin-Priority: 971

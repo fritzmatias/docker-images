@@ -1,0 +1,19 @@
+Package: *
+Pin: release a=testing,o=Debian,c=main
+Pin-Priority: 790
+
+Package: *
+Pin: release a=testing,o=Debian,c=misc
+Pin-Priority: 780
+
+Package: *
+Pin: release a=testing,o=Debian,c=contrib
+Pin-Priority: 780
+
+Package: *
+Pin: release a=testing,o=Debian,c=non-free
+Pin-Priority: 770
+
+Package: *
+Pin: release a=testing,o=Debian,c=non-free-firmware
+Pin-Priority: 770

@@ -1,0 +1,1 @@
+FROM google/cloud-sdk:alpine as gcloud

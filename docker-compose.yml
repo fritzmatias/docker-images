@@ -1,0 +1,149 @@
+version: '3.1'
+services:
+  debian_base_image:
+    image: debian_base:${IMAGE_TAG}
+    environment:
+      - IMAGE_TAG=${IMAGE_TAG}
+      - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+      - DOCKER_BASH_SCRIPTS_DIR=${DOCKER_BASH_SCRIPTS_DIR:-/bash.d/}
+    build:
+      context: debian_base
+      args:
+        - DOCKER_USER=${DOCKER_USER}
+
+  aws-cli_image:
+    image: aws-cli
+    build:
+      context: aws-sam
+
+  aws-sam_image:
+    image: aws-sam
+    build:
+      context: aws-sam
+
+  google-cloud-sdk_image:
+    image: google-cloud-sdk:${IMAGE_TAG}
+    build:
+      context: google-cloud-sdk
+
+  google-cloud-firebase-emulator_image:
+    image: google-cloud-firebase-emulator:${IMAGE_TAG}
+    environment:
+      - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+    build:
+      context: google-cloud-firebase-emulator
+      dockerfile: Dockerfile.slim
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - JAVA_ID=${JAVA_ID}
+        - NODEJS_DEBIAN_VERSION=${NODEJS_DEBIAN_VERSION}
+        - NPM_DEBIAN_VERSION=${NPM_DEBIAN_VERSION}
+
+  supervisord_image: 
+    image: supervisord:${IMAGE_TAG}
+    build:
+      context: supervisord
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+
+  xrdp_image: 
+    image: xrdp:${IMAGE_TAG}
+    build:
+      context: xrdp
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+
+  developertools_image: 
+    image: developertools:${IMAGE_TAG}
+    build:
+      context: developertools
+
+  intellij_ce_image: 
+    image: intellij_ce:${IMAGE_TAG}
+    build:
+      context: intellij_ce
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - JAVA_ID=${JAVA_ID}
+        - NODEJS_DEBIAN_VERSION=${NODEJS_DEBIAN_VERSION}
+        - NPM_DEBIAN_VERSION=${NPM_DEBIAN_VERSION}
+
+  vscode_image: 
+    image: vscode:${IMAGE_TAG}
+    environment:
+      - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+    build:
+      context: vscode
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+
+  tscode_image: 
+    image: tscode:${IMAGE_TAG}
+    build:
+      context: tscode
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+
+  solcode_image: 
+    image: solcode:${IMAGE_TAG}
+    build:
+      context: solcode
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+
+  sfcode_image: 
+    image: solcode:${IMAGE_TAG}
+    build:
+      context: solcode
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+
+  pycode_image: 
+    image: pycode:${IMAGE_TAG}
+    build:
+      context: pycode
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+
+  javacode_image: 
+    image: javacode:${IMAGE_TAG}
+    build:
+      context: javacode
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+
+  debian:
+    image: debian_base
+    entrypoint: /bin/bash
+
+  devtools:
+    image: intellij_ce:stable
+    entrypoint: /bin/bash
+    
+# for openvpn-proxy configure check https://github.com/jonohill/docker-openvpn-proxy
+# 
+#  idea: 
+#   image: intellij_ce
+#   entrypoint: ["/usr/bin/supervisord"]
+#   extra_hosts:
+#     - "pulse.docker.internal:host-gateway"
+#   ports:
+#     - 3389:3389
+#     - 3350:3350
+#   volumes:
+#     - ./developer:/home/developer
+
+# tscode: 
+#   image: tscode
+#   entrypoint: ["/usr/bin/supervisord"]
+#   extra_hosts:
+#     - "host.docker.internal:host-gateway"
+#   ports:
+#     - 3389:3389
+#     - 3350:3350
+

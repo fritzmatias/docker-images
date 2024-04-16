@@ -14,7 +14,7 @@ local environment=$1; shift
 local images="$@"
 local opt="$DOCKER_OPTIONS"
 
-    echo "Running build with options: $opt for images: $images"
+    echo "Running build with options: $opt for images: $images. Override options via 'export DOCKER_OPTIONS=opt1 opt2'"
     [ "$environment"x != x ] && [ -f "$environment" ] || (echo "file not found: $environment" && exit 1)
     for image in $images; do
     local log="${LOGDIR}/${image}.log"

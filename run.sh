@@ -29,9 +29,15 @@ local opt="$DOCKER_OPTIONS"
 opt=$1; shift
 case $opt in
     env)
-        environment=$1; shift
-        [ "$environment"x != x ] && [ -f "$environment" ]  || (echo "file not found: $environment" && exit 1)
-        exp "$environment"
+        local r=0
+        for environment in $@;do
+            if [ "$environment"x != x ] && [ -f "$environment" ]; then
+                exp "$environment"
+            else
+              echo "file not found: $environment" && r=1
+            fi
+        done
+        return $r
     ;;
     build)
         build $@

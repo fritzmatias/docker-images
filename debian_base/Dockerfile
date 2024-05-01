@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile-upstream:master
-
 FROM debian:bookworm-slim as base
 
 ENV DEBIAN_FRONTEND=noninteractive

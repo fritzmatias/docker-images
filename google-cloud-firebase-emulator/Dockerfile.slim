@@ -5,22 +5,32 @@ ENV DEBIAN_TARGETS ${DEBIAN_TARGETS}
 ARG NPM_DEBIAN_VERSION=${NPM_DEBIAN_VERSION}
 ARG NODEJS_DEBIAN_VERSION=${NODEJS_DEBIAN_VERSION}
 ARG JAVA_ID=${JAVA_ID}
+ARG FIREBASE_IMAGE_DIR=${FIREBASE_IMAGE_DIR:-/home/${DOCKER_USER}/firebase}
+
+COPY files/firebase.sh /usr/local/bin/
 
 RUN \
     /run.sh APTinstall \
+        procps \
         ca-certificates-java \
         openjdk-${JAVA_ID}-jre \
         nodejs${NODEJS_DEBIAN_VERSION} \
         npm${NPM_DEBIAN_VERSION} \
     && npm install -g \ 
         firebase-tools \
-    && firebase setup:emulators:database \
+    && /run.sh clean 
+
+USER ${DOCKER_USER}
+WORKDIR "${FIREBASE_IMAGE_DIR}"
+RUN \
+    firebase setup:emulators:database \
     && firebase setup:emulators:firestore \
     && firebase setup:emulators:pubsub \
     && firebase setup:emulators:storage \
     && firebase setup:emulators:ui \
-    && /run.sh clean \
     && rm ~/.cache/firebase/emulators/*.zip
+
+COPY --chown="${DOCKER_USER}":"${DOCKER_USER}"  files/firebase/* "${FIREBASE_IMAGE_DIR}"
 
 #https://firebase.google.com/docs/cli?authuser=0#mac-linux-npm
 #https://firebase.google.com/docs/emulator-suite/install_and_configure?hl=en&authuser=0#startup

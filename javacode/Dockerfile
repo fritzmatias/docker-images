@@ -14,6 +14,8 @@ RUN \
         maven \
         gradle 
 
+RUN echo export JAVA_HOME=$(find /usr/lib/jvm/ -name java-${JAVA_ID}*|head -1) >>/etc/profile.d/java_home.sh
+    
 COPY files/*.code_extensions /home/${DOCKER_USER}/
 RUN /bash_scripts.d/code_extensions.install.sh /home/${DOCKER_USER}/ \
     && /run.sh clean

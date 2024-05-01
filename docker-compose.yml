@@ -23,13 +23,19 @@ services:
 
   google-cloud-sdk_image:
     image: google-cloud-sdk:${IMAGE_TAG}
+    environment:
+      - IMAGE_TAG=${IMAGE_TAG}
     build:
       context: google-cloud-sdk
+      args:
+        - DOCKER_USER=${DOCKER_USER}
 
   google-cloud-firebase-emulator_image:
     image: google-cloud-firebase-emulator:${IMAGE_TAG}
     environment:
       - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+      - DOCKER_USER=${DOCKER_USER}
+      - FIREBASE_IMAGE_DIR=${FIREBASE_IMAGE_DIR}
     build:
       context: google-cloud-firebase-emulator
       dockerfile: Dockerfile.slim
@@ -57,16 +63,6 @@ services:
     image: developertools:${IMAGE_TAG}
     build:
       context: developertools
-
-  intellij_ce_image: 
-    image: intellij_ce:${IMAGE_TAG}
-    build:
-      context: intellij_ce
-      args:
-        - IMAGE_TAG=${IMAGE_TAG}
-        - JAVA_ID=${JAVA_ID}
-        - NODEJS_DEBIAN_VERSION=${NODEJS_DEBIAN_VERSION}
-        - NPM_DEBIAN_VERSION=${NPM_DEBIAN_VERSION}
 
   vscode_image: 
     image: vscode:${IMAGE_TAG}
@@ -116,6 +112,16 @@ services:
       args:
         - IMAGE_TAG=${IMAGE_TAG}
         - DEBIAN_TARGETS=${DEBIAN_TARGETS}
+
+  intellij_ce_image: 
+    image: intellij_ce:${IMAGE_TAG}
+    build:
+      context: intellij_ce
+      args:
+        - IMAGE_TAG=${IMAGE_TAG}
+        - JAVA_ID=${JAVA_ID}
+        - NODEJS_DEBIAN_VERSION=${NODEJS_DEBIAN_VERSION}
+        - NPM_DEBIAN_VERSION=${NPM_DEBIAN_VERSION}
 
   debian:
     image: debian_base

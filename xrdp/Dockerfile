@@ -4,12 +4,6 @@ FROM supervisord:${IMAGE_TAG} as xrdp
 ARG DOCKER_USER developer
 
 #https://github.com/satishweb/docker-xrdp/blob/master/Dockerfile
-# RUN \
-    # /run.sh APTupdate \
-    # && apt-get -y install xfce4 xfce4-goodies xorg dbus-x11 x11-xserver-utils \
-    # && apt-get -y install xrdp xorgxrdp \
-    # && /run.sh clean
-
 RUN \
     /run.sh APTinstall \
       xfce4 \
@@ -57,18 +51,6 @@ FROM xrdp as xrdp_configured
 
 # add to groups
 RUN adduser xrdp ssl-cert && echo "User: ${DOCKER_USER}" && adduser ${DOCKER_USER} ssl-cert 
-
-# add custom keys and certificates
-# COPY ./files/cert.pem /etc/xrdp/cert2.pem
-# COPY ./files/key.pem /etc/xrdp/key2.pem
-# RUN sed -i " \
-    # s/certificate=/certificate=cert2.pem/g; \
-    # s/key_file=/key_file=key2.pem/g; \
-    # " /etc/xrdp/xrdp.ini 
- 
-RUN chmod 644 /etc/xrdp/cert2.pem
-RUN chmod 640 /etc/xrdp/key2.pem
-RUN chown :xrdp /etc/xrdp/key2.pem
 
 # add pulse server host
 RUN echo "export PULSE_SERVER=pulse.server" > /etc/X11/Xsession.d/999pulse_server_env

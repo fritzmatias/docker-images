@@ -6,5 +6,6 @@ RUN \
         postgresql-client \
         default-mysql-client \
         firefox-esr \
-        git 
+        git \
+        gitleaks
 

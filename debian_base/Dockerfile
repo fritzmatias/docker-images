@@ -1,11 +1,11 @@
 FROM debian:bookworm-slim as base
 
+ARG DEBIAN_TARGETS=${DEBIAN_TARGETS:-stable}
+ARG DOCKER_USER=${DOCKER_USER:-developer}
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_TARGETS=${DEBIAN_TARGETS:-stable}
-ARG DOCKER_USER=${DOCKER_USER:-developer}
 ENV DOCKER_USER=${DOCKER_USER:-developer}
-RUN ["bash", "-c", "echo ${DOCKER_USER} "]
-RUN ["bash", "-c", "[ ${DOCKER_USER} = user ]"]
 ENV DOCKER_BASH_SCRIPTS_DIR=${DOCKER_BASH_SCRIPTS_DIR:-/bash_scripts.d/}
 
 COPY files/run.sh /run.sh

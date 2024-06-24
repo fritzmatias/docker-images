@@ -1,6 +1,5 @@
 [ "${DOCKER_BASH_SCRIPTS_DIR}"x = x ] && DOCKER_BASH_SCRIPTS_DIR="/bash_scripts.d"
 
-
 rmDirs(){
 for dir in $@;
 do
@@ -25,19 +24,24 @@ local ret=0
 
 APTenableSources(){
 	local DISABLED_SOURCES=/etc/apt/sources.list.disable
+	local ENABLED_SOURCES=/etc/apt/sources.list.d
 	local sources=$@
+	echo "enabling sources: ${sources}"
+
 	[ "$sources"x = x ] && echo "Warning using default value" && sources=stable
 	for source in $sources; do
 		local files=$(find "$DISABLED_SOURCES" -name *'.'"$source"'.'* )
+		echo "enabling source: ${sources} with file: $files"
 		for file in $files; do
-			[ -f "$file" ] && ln -s "$file" /etc/apt/sources.list.d/ 2>/dev/null || (echo "source: $file for: $source, not found" && exit 1)
+			[ -f "$file" ] && ln -s "$file" "${ENABLED_SOURCES}" 2>/dev/null || (echo "source: $file for: $source, not found" && exit 1)
 		done
 	done
+	# ls -1 "${ENABLED_SOURCES}"
 }
 
 APTupdate(){
 local sources=$@
-	[ "$sources"x = x ] && sources=$DEBIAN_TARGETS
+	[ "$sources"x = x ] && sources="$DEBIAN_TARGETS"
 	APTenableSources $sources \
 	&& apt-get -y update 
 }
